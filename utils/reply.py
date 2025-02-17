@@ -191,31 +191,11 @@ def final_reply(user_object):
         }
     }
 
-    return {
-        "type": user_object.slot_dict["intent"][0],
-        "value": {
-            "analyzeType": "指标分析",
-            "target": target_list,
-            "time":  user_object.slot_dict["time"],
-            "timeType": timeType_list,
-            "timeRelationship": timeRelationship,
-            "group":  user_object.slot_dict["group"],
-            "where":  user_object.slot_dict["where"],
-            "compare": user_object.slot_dict["compare"],
-            "rank": user_object.slot_dict["rank"],
-            "limits": user_object.slot_dict["limits"],
-            "exclude": user_object.slot_dict["exclude"],
-            "problemRecommendation": problemRecommendation
-        },
-        "history": [],
-        "context": ""
-    }
-
     # return {
     #     "type": user_object.slot_dict["intent"][0],
     #     "value": {
     #         "analyzeType": "指标分析",
-    #         "target": target_list + [],
+    #         "target": target_list,
     #         "time":  user_object.slot_dict["time"],
     #         "timeType": timeType_list,
     #         "timeRelationship": timeRelationship,
@@ -228,6 +208,26 @@ def final_reply(user_object):
     #         "problemRecommendation": problemRecommendation
     #     },
     #     "history": [],
-    #     "context": test_display_dict,
-    #     "slot_status": user_object.slot_dict
+    #     "context": ""
     # }
+
+    return {
+        "type": user_object.slot_dict["intent"][0],
+        "value": {
+            "analyzeType": "指标分析",
+            "target": target_list + [],
+            "time":  user_object.slot_dict["time"],
+            "timeType": timeType_list,
+            "timeRelationship": timeRelationship,
+            "group":  user_object.slot_dict["group"],
+            "where":  user_object.slot_dict["where"],
+            "compare": user_object.slot_dict["compare"],
+            "rank": user_object.slot_dict["rank"],
+            "limits": user_object.slot_dict["limits"],
+            "exclude": user_object.slot_dict["exclude"],
+            "problemRecommendation": problemRecommendation
+        },
+        "history": [],
+        "context": test_display_dict,
+        "slot_status": user_object.slot_dict
+    }
