@@ -1,0 +1,15 @@
+{
+    "metric":  [],
+    "table":  [],
+    "aggregation":  [],
+    "time":  [],
+    "timeType": [],
+    "group":  [],
+    "where":  [],
+    "compare":  [],
+    "proportion": [],
+    "rank":  [],
+    "limits":  [],
+    "exclude":  [],
+    "intent": []
+}

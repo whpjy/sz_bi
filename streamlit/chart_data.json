@@ -1,0 +1,371 @@
+{
+    "messages": [
+        {
+            "user_id": "admin",
+            "stream": true,
+            "data": {
+                "title": "病案首页基本信息表-出院人数",
+                "otherDimensions": [
+                    {
+                        "title": "主治医师",
+                        "targetName": "病案首页基本信息表-出院人数(主治医师)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16738,
+                                "columnName": "主治医师",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "住院医师",
+                        "targetName": "病案首页基本信息表-出院人数(住院医师)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16739,
+                                "columnName": "住院医师",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "科室",
+                        "targetName": "病案首页基本信息表-出院人数(科室)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16743,
+                                "columnName": "科室",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "出院病房编码",
+                        "targetName": "病案首页基本信息表-出院人数(出院病房编码)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16750,
+                                "columnName": "出院病房编码",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "患者性别",
+                        "targetName": "病案首页基本信息表-出院人数(患者性别)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16756,
+                                "columnName": "患者性别",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "手术等级",
+                        "targetName": "病案首页基本信息表-出院人数(手术等级)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16914,
+                                "columnName": "手术等级",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "手术科室",
+                        "targetName": "病案首页基本信息表-出院人数(手术科室)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16915,
+                                "columnName": "手术科室",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "手术医师",
+                        "targetName": "病案首页基本信息表-出院人数(手术医师)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16916,
+                                "columnName": "手术医师",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    },
+                    {
+                        "title": "愈合等级",
+                        "targetName": "病案首页基本信息表-出院人数(愈合等级)",
+                        "targetId": [
+                            2876483491564187
+                        ],
+                        "time": [
+                            [
+                                "2024-01",
+                                "2024-12"
+                            ]
+                        ],
+                        "timeType": [
+                            "出院时间"
+                        ],
+                        "group": [
+                            {
+                                "columnId": 16917,
+                                "columnName": "愈合等级",
+                                "timeType": null
+                            }
+                        ],
+                        "where": [],
+                        "exclude": []
+                    }
+                ],
+                "traceability": [
+                    {
+                        "typeName": "开始",
+                        "value": ""
+                    },
+                    {
+                        "typeName": "原子指标",
+                        "value": "病案首页基本信息表-出院人数"
+                    },
+                    {
+                        "typeName": "数据字段",
+                        "value": "fmrdid(病案号)"
+                    },
+                    {
+                        "typeName": "数据表",
+                        "value": "tmrdde(病案首页基本信息表)"
+                    },
+                    {
+                        "typeName": "数据库",
+                        "value": "ods_cmis_ora11g"
+                    },
+                    {
+                        "typeName": "结束",
+                        "value": ""
+                    }
+                ],
+                "targetIdOfMeasureMap": {
+                    "2876540458942617": "病案号"
+                },
+                "type": 1,
+                "demisions": [],
+                "measures": [
+                    "病案首页基本信息表-出院人数"
+                ],
+                "data_all": [
+                    [
+                        85
+                    ]
+                ],
+                "dimensionSize": 0,
+                "isContrast": 0,
+                "otherQuestion": null,
+                "plotType": [
+                    "表"
+                ],
+                "time": [
+                    [
+                        "2024-01",
+                        "2024-12"
+                    ]
+                ],
+                "group": [],
+                "chatDimensionDTOS": [
+                    {
+                        "columnName": "主治医师",
+                        "columnId": 16738
+                    },
+                    {
+                        "columnName": "住院医师",
+                        "columnId": 16739
+                    },
+                    {
+                        "columnName": "科室",
+                        "columnId": 16743
+                    },
+                    {
+                        "columnName": "出院病房编码",
+                        "columnId": 16750
+                    },
+                    {
+                        "columnName": "患者性别",
+                        "columnId": 16756
+                    },
+                    {
+                        "columnName": "手术等级",
+                        "columnId": 16914
+                    },
+                    {
+                        "columnName": "手术科室",
+                        "columnId": 16915
+                    },
+                    {
+                        "columnName": "手术医师",
+                        "columnId": 16916
+                    },
+                    {
+                        "columnName": "愈合等级",
+                        "columnId": 16917
+                    }
+                ],
+                "compareQty": null,
+                "compareRate": null,
+                "compareDimensionDTOS": null,
+                "compareTime": [],
+                "lastCompareTimeTerm": [],
+                "percentMeasureIndex": null,
+                "paretoTaskIds": null,
+                "unitsOfMeasures": [
+                    {
+                        "unitName": "",
+                        "ratio": 1,
+                        "unitDesc": ""
+                    }
+                ],
+                "dateGroupName": "",
+                "sqlScript": " SELECT 病案首页基本信息表出院人数.count_tmrdde_fmrdid AS count_tmrdde_fmrdid FROM  (  SELECT  count( DISTINCT tmrdde.fmrdid) AS count_tmrdde_fmrdid FROM ods_cmis_ora11g.tmrdde  INNER JOIN ods_cmis_ora11g.tmrdzd ON (ods_cmis_ora11g.tmrdde.fmrdid = ods_cmis_ora11g.tmrdzd.fmrdid)  INNER JOIN ods_cmis_ora11g.tmrdop ON (ods_cmis_ora11g.tmrdde.fmrdid = ods_cmis_ora11g.tmrdop.fmrdid)  WHERE tmrdde.fodate >= '2024-01-01' AND tmrdde.fodate <= '2024-12-31'  AND ( (tmrdde.fzyys <> '' ) )  ORDER BY count_tmrdde_fmrdid DESC )  病案首页基本信息表出院人数",
+                "requestData": {
+                    "targetId": [
+                        2876540458942617
+                    ],
+                    "targetName": "病案首页基本信息表-出院人数",
+                    "time": [
+                        [
+                            "2024-01",
+                            "2024-12"
+                        ]
+                    ],
+                    "group": [],
+                    "where": [],
+                    "exclude": [],
+                    "compare": [],
+                    "rank": [
+                        "+"
+                    ],
+                    "timeType": [
+                        "出院时间"
+                    ],
+                    "limits": [],
+                    "targetType": 1,
+                    "analyzeType": "指标分析",
+                    "chatType": "数值统计",
+                    "timeName": "出院时间"
+                }
+            }
+        }
+    ]
+}
