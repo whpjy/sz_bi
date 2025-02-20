@@ -44,7 +44,6 @@ def send_llm_stream(message):
         "stream": True,
         "temperature": 0.0
     }
-
     response_content = ''
     try:
         with requests.post(config.LLM_MODEL_URL, json=data, stream=True, verify=False) as response:

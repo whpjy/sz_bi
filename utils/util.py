@@ -864,9 +864,10 @@ def refactoring_history(user_object, new_input, history):
                     user_object.multi_recommendation_recognition = {}
 
     ## len(history) > 0表示多轮过程中，判断当前用户问题是否是上一轮对话的延续,如果不是，则清空历史
-    if len(history) > 0 and not continue_multiple_rounds_of_judgment(new_input,history):
-        user_object.history =[{"user": new_input}]
-        return user_object
+    if len(history) > 0:  # history是通过上次reply给前端的history再转发来的
+        if not continue_multiple_rounds_of_judgment(new_input, history):
+            user_object.history =[{"user": new_input}]
+            return user_object
 
     '''
        判断新输入是否是之前推荐过的指标，若是则带上相关历史信息
@@ -1260,8 +1261,9 @@ def rewrite_continuity_question_all(quetion, history):
     quetion = quetion.replace("去年", last_year).replace("今年", current_year)
 
 
-    prompt = f'''根据历史信息对用户新输入进行改写，参考历史信息的条件信息进行补充，如果用户意图和历史不相关则不进行补充
-以最新输入的条件为最后条件，覆盖历史中已出现的同类条件，保留历史信息中的其他出现的条件
+    prompt = f'''根据历史信息对用户新输入进行改写，参考历史信息的条件信息进行补充，如果用户意图和历史不相关则不进行补充。
+以最新输入的条件为最后条件，覆盖历史中已出现的同类条件，保留历史信息中的其他出现的条件。
+如果用户新输入提到了新的查询对象，以用户最新输入的为准，覆盖之前提到的查询对象。
 
 历史信息：{rewrite_history}
 用户新输入：{quetion}
@@ -1274,3 +1276,36 @@ def rewrite_continuity_question_all(quetion, history):
     rewrite = send_llm(prompt)
 
     return rewrite
+
+
+def exist_same_table(metric_list, target_name_list):
+    # 判断指标是否存在相同的业务域
+    target_name2table = {}
+    for target_name in target_name_list:
+        if '-' in target_name:
+            table_name = target_name.split('-')[0]
+            metric_name = target_name.split('-')[-1].replace("合计", "").replace("平均", "").replace("最大值", "").replace("最小值", "")
+            if metric_name not in target_name2table.keys():
+                target_name2table[metric_name] = [table_name]
+            else:
+                if table_name not in target_name2table[metric_name]:
+                    target_name2table[metric_name].append(table_name)
+
+    # 所有table放一起，如果存在某个table数等于指标数，那么存在共同业务域
+    table_count = {}
+    for metric_name in metric_list:
+        if metric_name in target_name2table.keys():
+            for table_name in target_name2table[metric_name]:
+                if table_name in table_count.keys():
+                    table_count[table_name] += 1
+                else:
+                    table_count[table_name] = 1
+
+    if len(table_count) == 0:
+        return False
+
+    max_value = max(count for table_name, count in table_count.items())
+    if max_value == len(metric_list):
+        return True
+
+    return False

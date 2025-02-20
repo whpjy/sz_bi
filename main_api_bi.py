@@ -32,7 +32,7 @@ async def receive_and_forward(request_data: dict):
     time1 = time.time()
     print("\n收到请求时间：", time1)
     messages = request_data.get("messages", [])
-    logger.info(f"收到请求: {messages}")
+    logger.info(f"\n收到请求: {messages}")
     if not messages:
         logger.error("No messages found in the request.")
         return {"error": "No messages found in the request."}
@@ -109,25 +109,38 @@ async def receive_and_forward(request_data: dict):
                 logger.info(error_traceback)
                 response = {"error": str(e) }
 
-            time2 = time.time()
-            print("总计耗时：", time2 - time1)
-            print("response", response)
-            logger.info(f"最终回复: {str(response)}")
-            logger.info(f"总计耗时: {time2 - time1}\n")
-            if LANGUAGE_MODE == "simplified":
+            # 尽管分类到这里，在识别指标过程中没有找到任何合适的指标，再返回到知识库问答的分类中去
+            if "need_knowledge_qa" in response.keys():
+                user_object.history = []
                 if stream:
-                    return StreamingResponse(generate_fake_stream_response(response),
-                                     media_type="application/json; charset=utf-8")
+                    result = StreamingResponse(
+                        function_intention_analysis_stream(public_data_class.targetDefine_dict, user_input,
+                                                           user_object),
+                        media_type="application/json; charset=utf-8")
+                    return result
                 else:
-                    return response
+                    answer = function_intention_analysis(public_data_class.targetDefine_dict, user_input, user_object)
+                    return function_intent_reply(answer)
             else:
-                origin_targetId2Name = public_data_class.origin_targetId2Name
-                response = convert_json_to_traditional_final(response, origin_targetId2Name)
-                if stream:
-                    return StreamingResponse(generate_fake_stream_response(response),
-                                     media_type="application/json; charset=utf-8")
+                time2 = time.time()
+                print("总计耗时：", time2 - time1)
+                print("response", response)
+                logger.info(f"最终回复: {str(response)}")
+                logger.info(f"总计耗时: {time2 - time1}\n")
+                if LANGUAGE_MODE == "simplified":
+                    if stream:
+                        return StreamingResponse(generate_fake_stream_response(response),
+                                         media_type="application/json; charset=utf-8")
+                    else:
+                        return response
                 else:
-                    return response
+                    origin_targetId2Name = public_data_class.origin_targetId2Name
+                    response = convert_json_to_traditional_final(response, origin_targetId2Name)
+                    if stream:
+                        return StreamingResponse(generate_fake_stream_response(response),
+                                         media_type="application/json; charset=utf-8")
+                    else:
+                        return response
 
     else:
         response = unrelated_intent_reply("获取指标数据异常！")
@@ -184,7 +197,6 @@ async def chart_interpretation(request_data: dict):
             fenxi = get_data_fenxi(history, data_content)
             result = {"result": fenxi}
             return result
-
 
 
 @app.post("/v1/chat/targetName_describe")

@@ -133,10 +133,13 @@ class agent_class:
 2、最终输出以列表 ['x', 'y', ...] 的形式输出，如果不存在要返回空列表 []
 3、不要输出其他的分析内容'''
         result = send_llm(prompt)
-        print("********", result)
         relevantIndicatorName_list = find_max_list(result)
         self.relevantIndicator = get_relevantIndicator_targetId(targetDefine_dict, relevantIndicatorName_list, self.all_metric_data)
         return str({'user_problem': key_word, '相关的指标': result})
+
+    def final_summary_output(self):
+        data = agent_reply("over")
+        yield json.dumps(data, ensure_ascii=False).encode('utf-8') + b'\n'
 
     def process_responses(self):
         print('---- Current Messages:', self.messages)
@@ -160,8 +163,8 @@ class agent_class:
                 continue
             if last_content != responses[0]['content']:
                 last_content = responses[0]['content']
-                data = agent_reply((responses[0]['content']))
-                print(data)
+                data = agent_reply(responses[0]['content'])
+                # print("////////////",data)
                 yield json.dumps(data, ensure_ascii=False).encode('utf-8') + b'\n'
 
         # data = agent_reply_done(last_content)
@@ -183,7 +186,8 @@ class agent_class:
                 'get_small_talk_reply': self.get_small_talk_reply,
                 'get_total_indicators_num': self.get_total_indicators_num,
                 'recommend_relevant_indicators':  self.recommend_relevant_indicators,
-                'get_instructions': self.get_instructions
+                'get_instructions': self.get_instructions,
+                'final_summary_output': self.final_summary_output
                 # 'get_total_indicators_name': self.get_total_indicators_name
             }
             function_name = last_response['function_call']['name']
@@ -237,7 +241,8 @@ class agent_class:
                 'get_small_talk_reply': self.get_small_talk_reply,
                 'get_total_indicators_num': self.get_total_indicators_num,
                 'recommend_relevant_indicators': self.recommend_relevant_indicators,
-                'get_instructions': self.get_instructions
+                'get_instructions': self.get_instructions,
+                'final_summary_output': self.final_summary_output
                 # 'get_total_indicators_name': self.get_total_indicators_name
             }
             function_name = last_response['function_call']['name']
@@ -266,20 +271,8 @@ class agent_class:
                 'content': function_response,
             })  # Extend conversation with function response
 
-            # if function_name == "recommend_relevant_indicators":
-            #     if len(self.relevantIndicator) != 0:
-            #         yield from self.process_responses_stream()
-            #         break
-                # else:
-                #     yield from self.process_responses_stream()
-                #     break
-
             yield from self.process_responses_stream()
             last_response = self.messages[-1]  # Update last response for next iteration
-            # log_info = self.messages[-1]['content'].replace('\n', ' ')
-            # print("     Current Status:", log_info)
-            # logger.info(f"     Current Status: {log_info}")
-
 
         # 如果推荐相关指标只调用一次，说明用户就是单纯的相关指标查询，只返回列表即可，否则正常由模型输出
         if "recommend_relevant_indicators" in self.functions_use_list:

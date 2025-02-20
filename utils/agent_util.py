@@ -22,5 +22,5 @@ def get_relevantIndicator_targetId(targetDefine_dict, relevantIndicatorName_list
                 if indicator_obj not in relevantIndicator:
                     relevantIndicator.append(indicator_obj)
 
-    print(relevantIndicator)
+    # print(relevantIndicator)
     return relevantIndicator

@@ -55,7 +55,7 @@ def get_where_sentence_vector_match(user_object, columnId_list, all_columnId2col
                 targetValue = info["targetValue"]
                 if phrases in targetValue:
                     contain_count += 1
-            if contain_count > 1:  # 2个及以上
+            if contain_count >= 1:  # 2个及以上
                 if phrases not in fuzzy_dict.keys():
                     fuzzy_dict[phrases] = {"position_list": position_list, "columnIdList": [columnId]}
                 else:

@@ -57,6 +57,8 @@ def extract_table(user_object, user_input):
                 table_list = [info["tableName"] for info in table_list_json]
                 table_name = table_character_match[0]
                 if table_name in table_list:
+                    if table_name not in user_object.slot_dict["table"]:
+                        user_object.slot_dict["table"].append(table_name)
                     if len(user_object.metric_table[metric]) == 0:
                         user_object.metric_table[metric] = [table_name]
 

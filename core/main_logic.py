@@ -45,6 +45,8 @@ def main_logic_deal(user_object, user_input, table_describe):
         logger.info(f"------开始指标识别------")
         user_object.jieba_window_phrases2positionList = get_window_phrases(user_object)
         extract_metric_result = extract_metric(user_object, user_input)
+        if "need_knowledge_qa" in extract_metric_result.keys():
+            return {"need_knowledge_qa": True}
         if extract_metric_result["need_multi_turn"]:
             user_object.history.append({"metric": extract_metric_result["result"]})
             return multi_reply(user_object, current_scene="metric")

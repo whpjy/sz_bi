@@ -1,3 +1,4 @@
+from bi_agent.general_agent import general_agent_class
 from config import CURRENT_SCENE
 from config.log_config import logger
 from bi_agent.agent_class import agent_class
@@ -27,7 +28,8 @@ def function_intention_analysis(targetDefine_dict, user_input, user_object):
 def function_intention_analysis_stream(targetDefine_dict, user_input, user_object):
 
     logger.info(f"进入 Agent")
-    new_agent = agent_class()
+    # new_agent = agent_class()
+    new_agent = general_agent_class()
     new_agent.all_metric_data = user_object.all_metric_data
     new_agent.zhibiao_list = get_zhibiao_list(user_object.all_metric_data)
     if CURRENT_SCENE == "weimeng" or CURRENT_SCENE == "feilida":

@@ -4,7 +4,7 @@ from config.log_config import logger
 from utils.json_util import find_max_list
 from utils.key_word_rule import exist_group_prefix
 from utils.request_util import batch_send_embedding_message, get_bge_reranker, send_embedding_message, send_llm
-from utils.util import metric_recommend, sort_by_metric_type, jaccard_similarity
+from utils.util import metric_recommend, sort_by_metric_type, jaccard_similarity, get_target_name_list, exist_same_table
 from utils.window_phrases import get_window_phrases_for_metric, get_window_phrases_for_metric_recommend
 
 
@@ -78,12 +78,24 @@ def get_metric_vector_match(user_object, collection_name):
     logger.info(f"指标召回： {match2phrase}")
     logger.info(f"指标召回(前15)： {filter_list[:15]}")
 
-    if len(filter_list) > 0:
-        llm_metric = llm_choose_metric(user_object, sentence, filter_list[:15])
-    else:
-        llm_metric = []
+    complete_match_metric_list = []
+    target_name_list = get_target_name_list(user_object.all_metric_data)  # 查看输入是否包含 表-指标 这种完整的形式
+    for target_name in target_name_list:
+        if target_name in sentence:
+            if '-' in target_name:
+                metric_name = target_name.split('-')[-1].replace("合计", "").replace("平均", "").replace("最大值", "").replace("最小值", "")
+                if metric_name in filter_list[:15]:
+                    complete_match_metric_list.append(metric_name)
 
-    logger.info(f"模型选择指标： {llm_metric}")
+    if len(complete_match_metric_list) > 0:
+        llm_metric = complete_match_metric_list
+    else:
+        if len(filter_list) > 0:
+            llm_metric = llm_choose_metric(user_object, sentence, filter_list[:15])
+        else:
+            llm_metric = []
+
+        logger.info(f"模型选择指标： {llm_metric}")
 
     if len(llm_metric) > 0:  # 模型判断有结果，此时有两种情况，一是可以直接确定，二是需要进入多轮
 
@@ -106,6 +118,11 @@ def get_metric_vector_match(user_object, collection_name):
                         if pos not in sentence_jieba_position_use:
                             sentence_jieba_position_use.append(pos)
                 else:
+                    need_mul_turn = True
+
+            # 如果没有重叠且不需要进入多轮，还有再考虑一下是否有共同的业务域，没的话也要多轮
+            if not need_mul_turn:
+                if not exist_same_table(llm_metric, target_name_list):
                     need_mul_turn = True
 
             if not need_mul_turn:
@@ -144,8 +161,10 @@ def get_metric_vector_match(user_object, collection_name):
                     final_match2phrase[word] = match2phrase[word]["phrases"]
 
     else:  # all_match_word 长度为0，进行无阈值推荐
-        logger.info(f"指标识别结果为空-进入分析推荐")
+        logger.info(f"没有匹配到合适的指标，进入知识库问答")
+        return [], [], {}
 
+        logger.info(f"指标识别结果为空-进入分析推荐")
         phrases2positionList = get_window_phrases_for_metric_recommend(user_object)  # 剔除字形匹配的指标
         logger.info(f"指标推荐的分词，不考虑sql抽取结果：{list(phrases2positionList.keys())}")
         # 获取所有窗口子串

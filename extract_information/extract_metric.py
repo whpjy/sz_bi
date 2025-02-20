@@ -69,6 +69,9 @@ def extract_metric(user_object, user_input):
         if not mul_turn_flag:
             logger.info(f"指标识别-非多轮-向量相似度")
             metric_vector_match, no_threshold_match, final_match2phrase = get_metric_vector_match(user_object, CURRENT_SCENE + "_zhibiao")
+            # 没有匹配到指标不用推荐了，转到知识库问答, 注意metric_vector_match为0，metric_recognize_by_phrase不为0，指标可能内部直接识别了
+            if len(metric_vector_match) == 0 and len(user_object.metric_recognize_by_phrase) == 0:
+                return {"need_knowledge_qa": True}
             user_object.metric_mul_turn_match2phrase = final_match2phrase
         else:
             logger.info(f"指标识别-多轮-向量相似度")

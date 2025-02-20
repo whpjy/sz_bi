@@ -4,7 +4,7 @@ from utils.json_util import convert_json_to_traditional
 functions_describe = [
     {
         'name': 'get_small_talk_reply',
-        'description': '与用户进行闲聊, 或者用户咨询如何使用',
+        'description': '与用户进行闲聊',
         "parameters": {
             "type": "object",
             "properties": {
@@ -18,7 +18,7 @@ functions_describe = [
     },
     {
         'name': 'get_instructions',
-        'description': '获取使用说明',
+        'description': '解释如何使用',
         'parameters': {
             'type': 'object',
             'properties': {},
@@ -44,7 +44,7 @@ functions_describe = [
     # },
     {
         "name": "recommend_relevant_indicators",
-        "description": "先提取用户问题中的关键词，根据关键词推荐相关指标",
+        "description": "推荐相关指标",
         "parameters": {
             "type": "object",
             "properties": {
@@ -55,11 +55,10 @@ functions_describe = [
             },
             "required": ["key_word"]
         }
-    }
+    },
 ]
 
 def agent_reply(context, relevantIndicator=[]):
-
 
     reply = {
                 "type": 2,
@@ -71,6 +70,7 @@ def agent_reply(context, relevantIndicator=[]):
             }
 
     return reply
+
 
 def agent_reply_done(context, relevantIndicator=[]):
     reply = {
@@ -94,7 +94,8 @@ def agent_reply_done(context, relevantIndicator=[]):
 use_tool_output = {
     "get_small_talk_reply": "⏳ 正在分析 ······",
     "get_total_indicators_num": "⏳ 正在查询指标数量 ······",
-    "recommend_relevant_indicators": "⏳ 正在计算相关的指标 ······",
-    "get_instructions":"⏳正在查阅使用说明 ······",
+    "recommend_relevant_indicators": "⏳ 正在获取相关的指标 ······",
+    "get_instructions": "⏳正在查阅使用说明 ······",
+    "final_summary_output": "⏳正在总结输出 ······"
     # "get_total_indicators_name": "⏳ 正在查询全部指标信息 ······"
 }
